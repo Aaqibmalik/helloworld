@@ -9,6 +9,8 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+    paths: 
+      - docker-compose.yml
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -24,7 +26,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
+      
+      - name: Build image
+        run: docker compose -f docker-compose.yml build
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
